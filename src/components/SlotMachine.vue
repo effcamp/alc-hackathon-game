@@ -1,23 +1,22 @@
 <template>
   <div>
-
     <div class="slot-machine">
-
       <div class="reels">
         <Reel
           v-for="i in 5"
           :card="cardsToSend[i-1]"
           :key="i-1"
         />
-
       </div>
       <Lever @click.native="pullLever" />
     </div>
-
-    {{pointsTotal}}
+    <div class="cardPointsTotal">
+      {{pointsTotal}}
+    </div>
+    <button>Hit</button>
+    <button>Roll Over</button>
     <!-- {{deck}} -->
   </div>
-
 </template>
 
 <script>
@@ -53,7 +52,8 @@ export default {
     pot: 0,
     pointsTotal: 0,
     multiplier: 1,
-    selectedReels: [false, false, false, false, false]
+    selectedReels: [false, false, false, false, false],
+    leverPulled: false
   }),
   methods: {
     shuffle(a) {
@@ -76,14 +76,17 @@ export default {
         .flat(1);
     },
     pullLever() {
-      this.cardsToSend = this.deck.splice(0, 5);
+      if (!this.leverPulled) {
+        this.cardsToSend = this.deck.splice(0, 5);
+        this.leverPulled = true;
+        this.selectReels(0);
+        this.selectReels(1);
 
-      this.selectReels(0);
-      this.selectReels(1);
-
-      this.createDeck();
-      this.shuffle(this.deck);
+        this.createDeck();
+        this.shuffle(this.deck);
+      }
     },
+
     selectReels(i) {
       if (!this.selectedReels[i]) {
         this.selectedReels[i] = true;
@@ -92,7 +95,12 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    leverPulled() {
+      if (this.leverPulled) {
+      }
+    }
+  },
   mounted() {
     this.createDeck();
     this.shuffle(this.deck);
