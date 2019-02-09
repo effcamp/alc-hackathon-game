@@ -9,6 +9,7 @@
 <script>
 import Reels from "./Reels.vue";
 import Lever from "./Lever.vue";
+
 export default {
   components: {
     Reels,

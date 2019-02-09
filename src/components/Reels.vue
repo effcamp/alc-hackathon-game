@@ -1,11 +1,17 @@
 <template>
   <div>
-    Reel
+    Reel- this is another test
+    <Card />
   </div>
 </template>
 
 <script>
-export default {};
+import Card from "./Card.vue";
+export default {
+  components: {
+    Card
+  }
+};
 </script>
 
 <style>
