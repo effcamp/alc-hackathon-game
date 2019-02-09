@@ -18,8 +18,8 @@ Creating a sick lottery game
 ### Team Roles ###
 
 Team Leader - Fred
-Presentaton - 
-Programmer -  Fred
+Presentation - Everyone
+Programmer -  Fred, Devon
 Artist - Reilly, Marc
 
 
