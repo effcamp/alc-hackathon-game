@@ -1,0 +1,23 @@
+Art Assets:
+	Cards
+	- Numbers 2, 3, 4, 5, 6, 7, 8, 9, 10, black and red
+	- Letters A, J, Q, K, black and red
+	- Card Suit Backings: Spade, Diamond, Heart, Club
+	Game Window Background
+	- scale?
+	Spin Button
+	Cash Out Button
+
+GUI Instances:
+	- Reels (5)
+	- Bid/Points Object (text object?)
+	- Multiplier Object (text object?)
+	- Spin Button Object
+	- Cash Out Button Object
+
+Audio Assets:
+	- Reel spinning sounds
+	- Background music
+	- Cash Out sound
+	- Bust sound
+	- Blackjack sound
