@@ -1,11 +1,20 @@
 <template>
   <div class="hello">
-    This is a test
+    SlotMachine
+    <Reels />
+    <Lever />
   </div>
 </template>
 
 <script>
-export default {};
+import Reels from "./Reels.vue";
+import Lever from "./Lever.vue";
+export default {
+  components: {
+    Reels,
+    Lever
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

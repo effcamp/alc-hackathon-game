@@ -1,16 +1,20 @@
 <template>
   <div id="app">
+    <Points />
     <SlotMachine />
+
   </div>
 </template>
 
 <script>
+import Points from "./components/Points.vue";
 import SlotMachine from "./components/SlotMachine.vue";
 
 export default {
   name: "app",
   components: {
-    SlotMachine
+    SlotMachine,
+    Points
   }
 };
 </script>
