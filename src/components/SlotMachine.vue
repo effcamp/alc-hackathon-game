@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    SlotMachine
+    SlotMachine - this is a test
     <Reels />
     <Lever />
   </div>
