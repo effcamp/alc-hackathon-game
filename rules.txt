@@ -5,20 +5,22 @@ NEW_GAME
 - First 2 reels spin
 	- Get 21: Instant Win!
 		-
-	- Get 17-20: Add money to pot.
+	- Get 17-20: Set Score.
 		- Spin new reel
-			- Get 21: Win! Gain Pot * Mulitiplier
+			- Get 21: Win! Gain (Score * Mulitiplier) + Pot
 			- Bust: Pot empties, GAME_OVER.
-		- Roll over: GOTO NEW_GAME, adding pot to new pot
+		- Roll over: GOTO NEW_GAME, add Score * Multiplier to 
+pot
 	- Get < 17:
 		- Spin new reel
-			- Get 21: Win! Gain Pot * Multiplier
+			- Get 21: Win! Gain (Score * Multiplier) + Pot
 			- Bust: Pot empties, GAME_OVER.
-- 5 Reels spun: if <= 21, Win! Gain Pot * Multiplier
+- 5 Reels spun: if <= 21, Win! Gain (Score * Multiplier) + Pot
 			
 Numbers:
 Fee	$3.00
 
+Number	Score
 17	$1.00
 18	$1.50
 19	$2.00
