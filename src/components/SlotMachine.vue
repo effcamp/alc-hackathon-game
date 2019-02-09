@@ -6,7 +6,6 @@
       <div class="reels">
         <Reel
           v-for="i in 5"
-          @click.native="selectReels(i-1)"
           :card="cardsToSend[i-1]"
           :key="i-1"
         />
@@ -14,6 +13,7 @@
       </div>
       <Lever @click.native="pullLever" />
     </div>
+
     {{pointsTotal}}
     <!-- {{deck}} -->
   </div>
@@ -43,12 +43,13 @@ export default {
       { name: "8", value: 8 },
       { name: "9", value: 9 },
       { name: "10", value: 10 },
-      { name: "Jack", value: 10 },
-      { name: "Queen", value: 10 },
-      { name: "King", value: 10 }
+      { name: "Jack", value: 10, face: "jack" },
+      { name: "Queen", value: 10, face: "queen" },
+      { name: "King", value: 10, face: "king" }
     ],
     deck: undefined,
     cardsToSend: [],
+    hitIndex: 2,
     pot: 0,
     pointsTotal: 0,
     multiplier: 1,
@@ -68,13 +69,18 @@ export default {
           this.numbers.map(n => ({
             name: `${n.name} of ${suit}`,
             value: n.value,
-            suit
+            suit,
+            face: n.face
           }))
         )
         .flat(1);
     },
     pullLever() {
       this.cardsToSend = this.deck.splice(0, 5);
+
+      this.selectReels(0);
+      this.selectReels(1);
+
       this.createDeck();
       this.shuffle(this.deck);
     },

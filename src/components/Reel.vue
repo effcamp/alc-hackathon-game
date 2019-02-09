@@ -1,8 +1,6 @@
 <template>
   <div class="reel">
-    Reel <br>
-    {{card && card.name}}
-    <Card />
+    <Card :card="card" />
   </div>
 </template>
 
@@ -21,5 +19,6 @@ export default {
   border: 1px dotted green;
   width: 200px;
   height: 400px;
+  padding-top: 50px;
 }
 </style>
