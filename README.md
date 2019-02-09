@@ -15,7 +15,7 @@ Creating a sick lottery game
 * How to run tests
 * Deployment instructions
 
-### Contribution guidelines ###
+### Team Roles ###
 
 Team Leader - Fred
 Presentaton - 
