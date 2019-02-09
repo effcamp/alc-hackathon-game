@@ -1,29 +1,29 @@
-# README #
+# lotto-game
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## Project setup
+```
+npm install
+```
 
-### What is this repository for? ###
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-Creating a sick lottery game
+### Compiles and minifies for production
+```
+npm run build
+```
 
-### How do I get set up? ###
+### Run your tests
+```
+npm run test
+```
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Lints and fixes files
+```
+npm run lint
+```
 
-### Team Roles ###
-
-Team Leader - Fred
-Presentation - Everyone
-Programmer -  Fred, Devon
-Artist - Reilly, Marc
-
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
