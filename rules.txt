@@ -1,0 +1,18 @@
+Game Flow:
+
+NEW_GAME
+- Player pays $3 to start a new round.
+- First 2 reels spin
+	- Get 21: Instant Win!
+		-
+	- Get 17-20: Add money to pot.
+		- Spin new reel
+			- Get 21: Win! Gain Pot * Mulitiplier
+			- Bust: Pot empties, GAME_OVER.
+		- Roll over: GOTO NEW_GAME
+	- Get < 17:
+		- Spin new reel
+			- Get 21: Win! Gain Pot * Multiplier
+			- Bust: Pot empties, GAME_OVER.
+- 5 Reels spun: if <= 21, Win! Gain Pot * Multiplier
+			
