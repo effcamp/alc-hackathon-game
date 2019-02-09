@@ -1,6 +1,6 @@
 <template>
   <div>
-    Reel
+    card
   </div>
 </template>
 
