@@ -1,6 +1,7 @@
 <template>
   <div class="reel">
-    Reel- this is another
+    Reel <br>
+    {{card && card.name}}
     <Card />
   </div>
 </template>
@@ -8,6 +9,7 @@
 <script>
 import Card from "./Card.vue";
 export default {
+  props: ["card"],
   components: {
     Card
   }
