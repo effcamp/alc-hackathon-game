@@ -3,7 +3,6 @@
     <Points />
     <div class="slot-face">
       <SlotMachine />
-      <Lever />
     </div>
 
   </div>
@@ -12,14 +11,12 @@
 <script>
 import Points from "./components/Points.vue";
 import SlotMachine from "./components/SlotMachine.vue";
-import Lever from "./components/Lever.vue";
 
 export default {
   name: "app",
   components: {
     SlotMachine,
-    Points,
-    Lever
+    Points
   }
 };
 </script>
@@ -41,6 +38,6 @@ html {
 }
 .slot-face {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 </style>

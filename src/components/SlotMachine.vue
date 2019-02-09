@@ -1,28 +1,33 @@
 <template>
-  <div class="slot-machine">
-    <button @click="sendFirstCard">test</button>
-    <!-- {{deck}} -->
+  <div>
 
-    <div class="reels">
-      <Reel
-        v-for="i in 5"
-        @click.native="selectReels(i-1)"
-        :card="cardsToSend[i-1]"
-        :key="i-1"
-      />
+    <div class="slot-machine">
 
+      <div class="reels">
+        <Reel
+          v-for="i in 5"
+          @click.native="selectReels(i-1)"
+          :card="cardsToSend[i-1]"
+          :key="i-1"
+        />
+
+      </div>
+      <Lever @click.native="pullLever" />
     </div>
     {{pointsTotal}}
-
+    <!-- {{deck}} -->
   </div>
+
 </template>
 
 <script>
 import Reel from "./Reel.vue";
+import Lever from "./Lever.vue";
 
 export default {
   components: {
-    Reel
+    Reel,
+    Lever
   },
   data: () => ({
     msg: "Hello!",
@@ -68,7 +73,7 @@ export default {
         )
         .flat(1);
     },
-    sendFirstCard() {
+    pullLever() {
       this.cardsToSend = this.deck.splice(0, 5);
       this.createDeck();
       this.shuffle(this.deck);
@@ -98,6 +103,9 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 20px;
+}
+.slot-machine {
+  display: flex;
 }
 h3 {
   margin: 40px 0 0;
