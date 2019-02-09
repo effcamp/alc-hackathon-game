@@ -2,20 +2,17 @@
   <div class="slot-machine">
     <button @click="sendFirstCard">test</button>
     <!-- {{deck}} -->
-    <p
-      v-for="(reel, i) in selectedReels"
-      :key="i"
-    >{{reel}}</p>
+
     <div class="reels">
       <Reel
         v-for="i in 5"
         @click.native="selectReels(i-1)"
         :card="cardsToSend[i-1]"
-        :key="i"
+        :key="i-1"
       />
 
     </div>
-    {{points}}
+    {{pointsTotal}}
 
   </div>
 </template>
@@ -46,10 +43,9 @@ export default {
       { name: "King", value: 10 }
     ],
     deck: undefined,
-    // cardsToSend: [],
-    cardsToSend: [1, 2, 3, 4, 5],
+    cardsToSend: [],
     pot: 0,
-    points: 0,
+    pointsTotal: 0,
     multiplier: 1,
     selectedReels: [false, false, false, false, false]
   }),
@@ -66,7 +62,8 @@ export default {
         .map(suit =>
           this.numbers.map(n => ({
             name: `${n.name} of ${suit}`,
-            value: n.value
+            value: n.value,
+            suit
           }))
         )
         .flat(1);
@@ -76,23 +73,11 @@ export default {
       this.createDeck();
       this.shuffle(this.deck);
     },
-    selectReels(reelIndex) {
-      this.selectedReels[reelIndex] = true;
-      this.totalPoints();
-    },
-    totalPoints() {
-      this.points = this.cardsToSend.reduce((prev, curr, i) => {
-        // if (this.selectedReels[i]) {
-        console.log(prev.value, curr);
-        return prev + curr;
-        // } else {/
-        // return prev;
-        // }
-      }, 0);
-
-      // this.selectedReels.reduce((reel, i) =>
-      //   reel ? this.cardsToSend[i].value : 0
-      // );
+    selectReels(i) {
+      if (!this.selectedReels[i]) {
+        this.selectedReels[i] = true;
+        this.pointsTotal += this.cardsToSend[i].value;
+      }
     }
   },
   computed: {},
