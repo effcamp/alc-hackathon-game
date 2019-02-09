@@ -1,6 +1,6 @@
 <template>
-  <div>
-    Reel- this is another test
+  <div class="reel">
+    Reel- this is another
     <Card />
   </div>
 </template>
@@ -15,4 +15,9 @@ export default {
 </script>
 
 <style>
+.reel {
+  border: 1px dotted green;
+  width: 200px;
+  height: 400px;
+}
 </style>
