@@ -348,7 +348,7 @@ export default {
 }
 .pot {
   position: absolute;
-  right: 150px;
+  right: 140px;
   top: 60px;
 }
 .multiplier {
