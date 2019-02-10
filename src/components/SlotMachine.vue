@@ -192,6 +192,8 @@ export default {
         case 20:
           this.pot += 2.5 * this.hitIndex;
           break;
+        case 21:
+          this.pot += 3 * this.hitIndex;
       }
     },
     async updateTotal() {
