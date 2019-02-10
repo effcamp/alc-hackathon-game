@@ -11,7 +11,7 @@ export default {
 <style scoped>
 .pot {
   color: rgb(97, 225, 214);
-  font-size: 70px;
+  font-size: 60px;
   /* 97 225 214 */
 }
 </style>
