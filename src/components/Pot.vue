@@ -1,12 +1,10 @@
 <template>
-  <div class="points">
-    Points
-  </div>
+  <div class="pot">Pot: {{pot}}</div>
 </template>
 
 <script>
 export default {
-  props: ["points"]
+  props: ["pot"]
 };
 </script>
 

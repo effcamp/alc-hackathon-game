@@ -11,7 +11,7 @@ export default {};
 <style>
 .lever {
   width: 100px;
-  height: 400px;
+  height: 50px;
   border: 1px dashed orange;
 }
 </style>

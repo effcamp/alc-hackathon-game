@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <Points />
     <div class="slot-face">
       <SlotMachine />
     </div>
@@ -9,14 +8,12 @@
 </template>
 
 <script>
-import Points from "./components/Points.vue";
 import SlotMachine from "./components/SlotMachine.vue";
 
 export default {
   name: "app",
   components: {
-    SlotMachine,
-    Points
+    SlotMachine
   }
 };
 </script>

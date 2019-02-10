@@ -1,39 +1,63 @@
 <template>
-  <div>
-    <div class="slot-machine">
-      <div class="reels">
-        <Reel
-          v-for="i in 5"
-          :card="cardsToSend[i-1]"
-          :key="i-1"
-          :showCard="selectedReels[i-1]"
-        />
-      </div>
-      <Lever @click.native="pullLever" />
+  <div class="slot-machine">
+    <div class="slot-machine-top">
+      <div class="title">Slot Machine</div>
+      <Multiplier :multiplier="multiplier" />
+      <Pot :pot="pot" />
     </div>
-    {{pointsTotal || 0}}
-    <button
-      @click="hitNewCard"
-      :disabled="hitIndex ===5 || pointsTotal === 0 || !canHit"
-    >Hit</button>
-    <button
-      @click="rollOver"
-      :disabled="!canRollOver"
-    >Roll Over</button>
-    {{bust ? "BUST" : ""}}
-    {{blackJack ? "BLACKJACK" : ""}}
-    <!-- {{deck}} -->
+    <div class="reels">
+      <Reel
+        v-for="i in 5"
+        :card="cardsToSend[i-1]"
+        :key="i-1"
+        :showCard="selectedReels[i-1]"
+        :spinning="spinning[i-1]"
+        :virtualDeck="virtualDeck"
+      />
+    </div>
+    <div class="controls">
+
+      <button
+        class="lever-btn btn"
+        :disabled="leverPulled"
+        @click="pullLever"
+      >Play</button>
+      {{pointsTotal || 0}}
+      <Points :points="pointsTotal" />
+
+      <button
+        class="hit-btn btn"
+        @click="hitNewCard"
+        :disabled="hitIndex ===5 || pointsTotal === 0 || !canHit"
+      >Hit</button>
+      <button
+        class="roll-btn btn"
+        @click="rollOver"
+        :disabled="!canRollOver"
+      >Roll Over</button>
+
+      <p>{{bust ? "BUST" : ""}}</p>
+      <p>{{blackJack ? "BLACKJACK" : ""}}</p>
+      <!-- deck {{deck}} <br>
+      virtual{{virtualDeck}} -->
+    </div>
   </div>
 </template>
 
 <script>
 import Reel from "./Reel.vue";
 import Lever from "./Lever.vue";
+import Points from "./Points.vue";
+import Pot from "./Pot.vue";
+import Multiplier from "./Multiplier.vue";
 
 export default {
   components: {
     Reel,
-    Lever
+    Lever,
+    Points,
+    Pot,
+    Multiplier
   },
   data: () => ({
     suits: ["clubs", "hearts", "spades", "diamonds"],
@@ -53,7 +77,9 @@ export default {
       { name: "King", value: 10, face: "king" }
     ],
     deck: undefined,
+    virtualDeck: undefined,
     cardsToSend: [],
+    spinning: [false, false, false, false, false],
     hitIndex: 2,
     pot: 0,
     pointsTotal: 0,
@@ -64,7 +90,9 @@ export default {
     canRollOver: false,
     canHit: true,
     bust: false,
-    blackJack: false
+    blackJack: false,
+    multiplier: 1,
+    pot: 0
   }),
   methods: {
     shuffle(a) {
@@ -89,8 +117,11 @@ export default {
     pullLever() {
       if (!this.leverPulled) {
         this.resetSlots();
+        // this.spinReels(0);
+        // this.spinReels(1);
         this.cardsToSend = this.deck.splice(0, 5);
         this.leverPulled = true;
+        setTimeout(() => {});
         this.selectReels(0);
         this.selectReels(1);
         this.updateTotal();
@@ -98,9 +129,12 @@ export default {
     },
     selectReels(i) {
       this.selectedReels[i] = true;
+      this.spinning[i] = true;
+
       this.pointsArray.push(this.cardsToSend[i].value);
     },
     hitNewCard() {
+      // this.spinReels(this.hitIndex);
       this.selectReels(this.hitIndex);
       this.hitIndex++;
       this.updateTotal();
@@ -109,13 +143,29 @@ export default {
       this.leverPulled = false;
       this.canRollOver = false;
       this.canHit = false;
+      switch (this.pointsTotal) {
+        case 17:
+          this.pot += 1;
+          break;
+        case 18:
+          this.pot += 2;
+          break;
+        case 19:
+          this.pot += 3;
+          break;
+        case 20:
+          this.pot += 4;
+          break;
+      }
     },
     updateTotal() {
-      if (this.pointsArray.length !== 0) {
-        this.pointsTotal = this.pointsArray.reduce((prev, cur, i) =>
-          this.selectedReels[i] ? prev + cur : prev
-        );
-      }
+      setTimeout(() => {
+        if (this.pointsArray.length !== 0) {
+          this.pointsTotal = this.pointsArray.reduce((prev, cur, i) =>
+            this.selectedReels[i] ? prev + cur : prev
+          );
+        }
+      }, 5000);
     },
     resetSlots() {
       this.blackJack = false;
@@ -125,10 +175,20 @@ export default {
       this.pointsTotal = 0;
       this.createDeck();
       this.shuffle(this.deck);
+      this.virtualDeck = this.deck.slice(0);
       this.pointsArray = [];
       this.selectedReels = [false, false, false, false, false];
+      this.spinning = [false, false, false, false, false];
+
       this.canHit = true;
     }
+    // spinReels(card) {
+    //   this.spinning[card] = true;
+
+    //   setTimeout(() => {
+    //     this.spinning[card] = false;
+    //   }, 5000);
+    // }
   },
   computed: {},
   watch: {
@@ -142,6 +202,8 @@ export default {
         this.canRollOver = false;
         this.leverPulled = false;
       } else if (this.pointsTotal === 21) {
+        // BLACKJACK
+        this.pot += 5;
         this.blackJack = true;
         this.canHit = false;
         this.leverPulled = false;
@@ -157,6 +219,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.slot-machine {
+  height: 600px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 .reels {
   width: 1080px;
   margin: 0 auto;
@@ -165,8 +233,26 @@ export default {
   justify-content: space-between;
   padding: 20px;
 }
-.slot-machine {
+.slot-machine-top {
   display: flex;
+  height: 75px;
+}
+.slot-machine-top > * {
+  margin: 0 20px;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.controls > * {
+  margin: 0 10px;
+}
+.btn {
+  height: 50px;
+  width: 100px;
+  /* background: url(../assets/Background-21912.jpg);
+  background-size: 100%; */
 }
 h3 {
   margin: 40px 0 0;
