@@ -14,7 +14,7 @@
     {{pointsTotal || 0}}
     <button
       @click="hitNewCard"
-      :disabled="hitIndex ===5 || pointsTotal === 0 || bust || blackJack"
+      :disabled="hitIndex ===5 || pointsTotal === 0 || !canHit"
     >Hit</button>
     <button
       @click="rollOver"
@@ -62,6 +62,7 @@ export default {
     selectedReels: [false, false, false, false, false],
     leverPulled: false,
     canRollOver: false,
+    canHit: true,
     bust: false,
     blackJack: false
   }),
@@ -105,7 +106,9 @@ export default {
       this.updateTotal();
     },
     rollOver() {
-      this.resetSlots();
+      this.leverPulled = false;
+      this.canRollOver = false;
+      this.canHit = false;
     },
     updateTotal() {
       if (this.pointsArray.length !== 0) {
@@ -124,6 +127,7 @@ export default {
       this.shuffle(this.deck);
       this.pointsArray = [];
       this.selectedReels = [false, false, false, false, false];
+      this.canHit = true;
     }
   },
   computed: {},
@@ -131,13 +135,15 @@ export default {
     pointsTotal() {
       if (this.pointsTotal > 16 && this.pointsTotal < 21) {
         this.canRollOver = true;
-        this.leverPulled = false;
       } else if (this.pointsTotal > 21) {
         //BUST
         this.bust = true;
+        this.canHit = false;
+        this.canRollOver = false;
         this.leverPulled = false;
       } else if (this.pointsTotal === 21) {
         this.blackJack = true;
+        this.canHit = false;
         this.leverPulled = false;
       }
     }
