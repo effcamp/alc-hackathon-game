@@ -131,11 +131,20 @@ export default {
         // this.updateTotal();
         // }, 0.5);
         setTimeout(() => {
-          this.selectReels(this.hitIndex);
-          this.spinReels(this.hitIndex);
-          this.spinning.splice(this.hitIndex, 1, false);
-          this.hitIndex++;
-          this.updateTotal();
+          // this.selectReels(this.hitIndex);
+          // this.spinReels(this.hitIndex);
+          // this.spinning.splice(this.hitIndex, 1, false);
+          // this.hitIndex++;
+          // this.updateTotal();
+          this.hitNewCard();
+        }, 5);
+        setTimeout(() => {
+          // this.selectReels(this.hitIndex);
+          // this.spinReels(this.hitIndex);
+          // this.spinning.splice(this.hitIndex, 1, false);
+          // this.hitIndex++;
+          // this.updateTotal();
+          this.hitNewCard();
         }, 5);
       }
     },
@@ -172,16 +181,16 @@ export default {
       this.canHit = false;
       switch (this.pointsTotal) {
         case 17:
-          this.pot += 1;
+          this.pot += 1 * this.hitIndex;
           break;
         case 18:
-          this.pot += 2;
+          this.pot += 1.5 * this.hitIndex;
           break;
         case 19:
-          this.pot += 3;
+          this.pot += 2 * this.hitIndex;
           break;
         case 20:
-          this.pot += 4;
+          this.pot += 2.5 * this.hitIndex;
           break;
       }
     },
@@ -227,6 +236,7 @@ export default {
         this.canHit = false;
         this.canRollOver = false;
         this.leverPulled = false;
+        this.pot = 0;
       } else if (this.pointsTotal === 21) {
         // BLACKJACK
         this.pot += 5;
@@ -348,7 +358,8 @@ export default {
 }
 .pot {
   position: absolute;
-  right: 140px;
+  right: 50px;
+  text-align: right;
   top: 60px;
 }
 .multiplier {

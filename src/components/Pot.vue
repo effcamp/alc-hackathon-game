@@ -1,5 +1,5 @@
 <template>
-  <div class="pot">{{pot}}</div>
+  <div class="pot">{{parseFloat(pot).toFixed(2)}}</div>
 </template>
 
 <script>
