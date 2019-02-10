@@ -80,7 +80,7 @@ export default {
   align-items: flex-start;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0 10px;
+  padding: 5px 10px;
 }
 .suit1 {
   width: 50px;
@@ -98,5 +98,7 @@ export default {
 .number {
   align-self: center;
   order: 2;
+  width: 50%;
+  height: auto;
 }
 </style>
