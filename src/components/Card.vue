@@ -1,17 +1,17 @@
 <template>
   <div
     class="card"
-    v-if="card"
+    v-if="card && showCard"
   >
-    <img
-      class="suit"
-      :src="suit"
-      :alt="card.suit"
-    >
     <img
       class="number"
       :src="number"
       :alt="card.number"
+    >
+    <img
+      class="suit"
+      :src="suit"
+      :alt="card.suit"
     >
     <!-- 
     {{card.name}}
@@ -24,10 +24,11 @@
 
 <script>
 export default {
-  props: ["card"],
+  props: ["card", "showCard"],
   data: () => ({
     suit: ``,
-    number: ``
+    number: ``,
+    showTheCard: false
   }),
   watch: {
     card() {
@@ -54,6 +55,11 @@ export default {
         }
       }
     }
+    // showCard() {
+    //   if (this.showCard) {
+    //     this.showTheCard = true;
+    //   }
+    // }
   }
 };
 </script>

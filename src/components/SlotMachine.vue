@@ -6,15 +6,22 @@
           v-for="i in 5"
           :card="cardsToSend[i-1]"
           :key="i-1"
+          :showCard="selectedReels[i-1]"
         />
       </div>
       <Lever @click.native="pullLever" />
     </div>
-    <div class="cardPointsTotal">
-      {{pointsTotal}}
-    </div>
-    <button>Hit</button>
-    <button>Roll Over</button>
+    {{pointsTotal || 0}}
+    <button
+      @click="hitNewCard"
+      :disabled="hitIndex ===5 || pointsTotal === 0 || bust || blackJack"
+    >Hit</button>
+    <button
+      @click="rollOver"
+      :disabled="!canRollOver"
+    >Roll Over</button>
+    {{bust ? "BUST" : ""}}
+    {{blackJack ? "BLACKJACK" : ""}}
     <!-- {{deck}} -->
   </div>
 </template>
@@ -29,7 +36,6 @@ export default {
     Lever
   },
   data: () => ({
-    msg: "Hello!",
     suits: ["clubs", "hearts", "spades", "diamonds"],
     numbers: [
       { name: "Ace", value: 1 },
@@ -51,9 +57,13 @@ export default {
     hitIndex: 2,
     pot: 0,
     pointsTotal: 0,
+    pointsArray: [],
     multiplier: 1,
     selectedReels: [false, false, false, false, false],
-    leverPulled: false
+    leverPulled: false,
+    canRollOver: false,
+    bust: false,
+    blackJack: false
   }),
   methods: {
     shuffle(a) {
@@ -77,27 +87,58 @@ export default {
     },
     pullLever() {
       if (!this.leverPulled) {
+        this.resetSlots();
         this.cardsToSend = this.deck.splice(0, 5);
         this.leverPulled = true;
         this.selectReels(0);
         this.selectReels(1);
-
-        this.createDeck();
-        this.shuffle(this.deck);
+        this.updateTotal();
       }
     },
-
     selectReels(i) {
-      if (!this.selectedReels[i]) {
-        this.selectedReels[i] = true;
-        this.pointsTotal += this.cardsToSend[i].value;
+      this.selectedReels[i] = true;
+      this.pointsArray.push(this.cardsToSend[i].value);
+    },
+    hitNewCard() {
+      this.selectReels(this.hitIndex);
+      this.hitIndex++;
+      this.updateTotal();
+    },
+    rollOver() {
+      this.resetSlots();
+    },
+    updateTotal() {
+      if (this.pointsArray.length !== 0) {
+        this.pointsTotal = this.pointsArray.reduce((prev, cur, i) =>
+          this.selectedReels[i] ? prev + cur : prev
+        );
       }
+    },
+    resetSlots() {
+      this.blackJack = false;
+      this.canRollOver = false;
+      this.bust = false;
+      this.hitIndex = 2;
+      this.pointsTotal = 0;
+      this.createDeck();
+      this.shuffle(this.deck);
+      this.pointsArray = [];
+      this.selectedReels = [false, false, false, false, false];
     }
   },
   computed: {},
   watch: {
-    leverPulled() {
-      if (this.leverPulled) {
+    pointsTotal() {
+      if (this.pointsTotal > 16 && this.pointsTotal < 21) {
+        this.canRollOver = true;
+        this.leverPulled = false;
+      } else if (this.pointsTotal > 21) {
+        //BUST
+        this.bust = true;
+        this.leverPulled = false;
+      } else if (this.pointsTotal === 21) {
+        this.blackJack = true;
+        this.leverPulled = false;
       }
     }
   },

@@ -1,13 +1,16 @@
 <template>
   <div class="reel">
-    <Card :card="card" />
+    <Card
+      :showCard="showCard"
+      :card="card"
+    />
   </div>
 </template>
 
 <script>
 import Card from "./Card.vue";
 export default {
-  props: ["card"],
+  props: ["card", "showCard"],
   components: {
     Card
   }
