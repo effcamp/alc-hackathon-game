@@ -9,7 +9,12 @@
       :alt="card.number"
     >
     <img
-      class="suit"
+      class="suit1"
+      :src="suit"
+      :alt="card.suit"
+    >
+    <img
+      class="suit2"
       :src="suit"
       :alt="card.suit"
     >
@@ -71,9 +76,27 @@ export default {
   background-repeat: no-repeat;
   height: 300px;
   z-index: -3;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0 10px;
 }
-.suit {
+.suit1 {
   width: 50px;
   z-index: 5;
+  order: 1;
+}
+
+.suit2 {
+  width: 50px;
+  z-index: 5;
+  align-self: flex-end;
+  order: 3;
+}
+
+.number {
+  align-self: center;
+  order: 2;
 }
 </style>
