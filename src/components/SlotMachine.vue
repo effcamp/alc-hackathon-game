@@ -195,8 +195,6 @@ export default {
         case 20:
           this.pot += 2.5 * this.hitIndex;
           break;
-        case 21:
-          this.pot += 3 * this.hitIndex;
       }
     },
     async updateTotal() {
@@ -244,6 +242,7 @@ export default {
         this.pot = 0;
       } else if (this.pointsTotal === 21) {
         // BLACKJACK
+        this.pot += 3 * this.hitIndex;
         this.blackJack = true;
         this.canHit = false;
         this.leverPulled = false;
