@@ -17,19 +17,30 @@ export default {
   },
   data: () => ({
     cardToShow: undefined,
-    stillSpinning: true
+    stillSpinning: undefined
   }),
   watch: {
     spinning() {
-      if (this.spinning === true) {
+      this.stillSpinning = this.spinning;
+      if (this.stillSpinning === true) {
         let reelSpin = setInterval(() => {
           this.cardToShow = this.virtualDeck[Math.floor(Math.random() * 52)];
           // console.log(Math.floor(Math.random() * 52));
         }, 200);
         setTimeout(() => {
           window.clearInterval(reelSpin);
-          this.cardToShow = this.card;
+          this.stillSpinning = false;
         }, 5000);
+      }
+    },
+    stillSpinning() {
+      if (!this.stillSpinning) {
+        this.cardToShow = this.card;
+      }
+    },
+    showCard() {
+      if (this.showCard) {
+        this.cardToShow = undefined;
       }
     }
   }
