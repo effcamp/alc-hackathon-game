@@ -43,6 +43,9 @@
     <p>{{blackJack ? "BLACKJACK" : ""}}</p>
     <!-- deck {{deck}} <br>
       virtual{{virtualDeck}} -->
+    <div class="money">Spent: {{totalSpend}}<br>
+      Made: {{totalWon}} <br>
+      Total: {{totalEarned}}</div>
   </div>
 </template>
 
@@ -93,7 +96,9 @@ export default {
     bust: false,
     blackJack: false,
     multiplier: 1,
-    pot: 0
+    pot: 0,
+    totalSpend: 0,
+    totalWon: 0
   }),
   methods: {
     shuffle(a) {
@@ -116,6 +121,7 @@ export default {
         .flat(1);
     },
     pullLever() {
+      this.totalSpend -= 3;
       if (this.blackJack) {
         this.pot = 0;
       }
@@ -228,7 +234,11 @@ export default {
     //   }, 5000);
     // }
   },
-  computed: {},
+  computed: {
+    totalEarned() {
+      return this.totalSpend + this.totalWon;
+    }
+  },
   watch: {
     pointsTotal() {
       if (this.pointsTotal > 16 && this.pointsTotal < 21) {
@@ -249,6 +259,7 @@ export default {
         this.blackJack = true;
         this.canHit = false;
         this.leverPulled = false;
+        this.totalWon += this.pot;
       }
     }
   },
@@ -372,6 +383,11 @@ export default {
   position: absolute;
   top: 65px;
   right: 370px;
+}
+.money {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 h3 {
   margin: 40px 0 0;
