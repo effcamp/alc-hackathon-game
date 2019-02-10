@@ -1,7 +1,6 @@
 <template>
   <div class="slot-machine">
     <div class="slot-machine-top">
-      <div class="title">Slot Machine</div>
       <Multiplier :multiplier="multiplier" />
       <Pot :pot="pot" />
     </div>
@@ -15,32 +14,32 @@
         :virtualDeck="virtualDeck"
       />
     </div>
-    <div class="controls">
 
-      <button
-        class="lever-btn btn"
-        :disabled="leverPulled"
-        @click="pullLever"
-      >Play</button>
-      {{pointsTotal || 0}}
-      <Points :points="pointsTotal" />
+    <button
+      class="lever-btn btn"
+      :disabled="leverPulled"
+      @click="pullLever"
+    >Play</button>
+    <Points
+      class="points"
+      :points="pointsTotal"
+    />
 
-      <button
-        class="hit-btn btn"
-        @click="hitNewCard"
-        :disabled="hitIndex ===5 || pointsTotal ==0 || !canHit"
-      >Hit</button>
-      <button
-        class="roll-btn btn"
-        @click="rollOver"
-        :disabled="!canRollOver"
-      >Roll Over</button>
+    <button
+      class="hit-btn btn"
+      @click="hitNewCard"
+      :disabled="hitIndex ===5 || pointsTotal ==0 || !canHit"
+    >Hit</button>
+    <button
+      class="roll-btn btn"
+      @click="rollOver"
+      :disabled="!canRollOver"
+    >Roll Over</button>
 
-      <p>{{bust ? "BUST" : ""}}</p>
-      <p>{{blackJack ? "BLACKJACK" : ""}}</p>
-      <!-- deck {{deck}} <br>
+    <p>{{bust ? "BUST" : ""}}</p>
+    <p>{{blackJack ? "BLACKJACK" : ""}}</p>
+    <!-- deck {{deck}} <br>
       virtual{{virtualDeck}} -->
-    </div>
   </div>
 </template>
 
@@ -245,18 +244,24 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .slot-machine {
-  height: 600px;
+  height: 800px;
+  width: 1080px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  background: url(../assets/Lotto_Transparent-Foreground.png);
+  background-size: 100%;
+  position: relative;
 }
 .reels {
-  width: 1080px;
+  width: 980px;
   margin: 0 auto;
-  border: 1px solid black;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  /* padding: 20px; */
+  position: absolute;
+  top: 240px;
+  left: 50px;
 }
 .slot-machine-top {
   display: flex;
@@ -278,6 +283,33 @@ export default {
   width: 100px;
   /* background: url(../assets/Background-21912.jpg);
   background-size: 100%; */
+}
+.lever-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 100px;
+  height: 100px;
+  width: 235px;
+}
+.hit-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 200px;
+  width: 150px;
+  height: 100px;
+}
+.roll-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  height: 100px;
+  width: 150px;
+}
+.points {
+  position: absolute;
+  bottom: 120px;
+  left: 515px;
+  text-align: center;
 }
 h3 {
   margin: 40px 0 0;

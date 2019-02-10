@@ -22,9 +22,7 @@ export default {
 * {
   box-sizing: border-box;
 }
-#app {
-  border: 1px solid red;
-}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
