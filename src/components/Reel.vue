@@ -38,9 +38,10 @@ export default {
 
 <style>
 .reel {
+  z-index: -5;
   border: 1px dotted green;
-  width: 200px;
-  height: 400px;
-  padding-top: 50px;
+  /* width: 200px;
+  height: 300px; */
+  /* padding-top: 50px; */
 }
 </style>

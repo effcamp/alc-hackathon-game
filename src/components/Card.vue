@@ -60,11 +60,6 @@ export default {
         }
       }
     }
-    // showCard() {
-    //   if (this.showCard) {
-    //     this.showTheCard = true;
-    //   }
-    // }
   }
 };
 </script>
@@ -74,7 +69,7 @@ export default {
   background: url(../assets/cards/cardTemplate.png);
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 300px;
+  height: 280px;
   z-index: -3;
   display: flex;
   align-items: flex-start;

@@ -1,6 +1,6 @@
 <template>
   <div class="points">
-    Points
+    {{points}}
   </div>
 </template>
 
@@ -10,5 +10,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.points {
+  font-size: 90px;
+  color: lightblue;
+}
 </style>
