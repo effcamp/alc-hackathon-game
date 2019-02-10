@@ -254,14 +254,14 @@ export default {
   position: relative;
 }
 .reels {
-  width: 980px;
+  width: 978px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   /* padding: 20px; */
   position: absolute;
   top: 240px;
-  left: 50px;
+  left: 53px;
 }
 .slot-machine-top {
   display: flex;
