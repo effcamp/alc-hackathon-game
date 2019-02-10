@@ -28,7 +28,7 @@
       <button
         class="hit-btn btn"
         @click="hitNewCard"
-        :disabled="hitIndex ===5 || pointsTotal === 0 || !canHit"
+        :disabled="hitIndex ===5 || pointsTotal ==0 || !canHit"
       >Hit</button>
       <button
         class="roll-btn btn"
@@ -80,7 +80,7 @@ export default {
     virtualDeck: undefined,
     cardsToSend: [],
     spinning: [false, false, false, false, false],
-    hitIndex: 2,
+    hitIndex: 0,
     pot: 0,
     pointsTotal: 0,
     pointsArray: [],
@@ -121,13 +121,21 @@ export default {
         // this.spinReels(1);
         this.cardsToSend = this.deck.splice(0, 5);
         this.leverPulled = true;
+        this.spinAllReels();
         // setTimeout(() => {
-        this.selectReels(0);
-        this.selectReels(1);
-        this.spinReels(0);
-        this.spinReels(1);
-        this.updateTotal();
+        // this.selectReels(0);
+        // this.selectReels(1);
+        // this.spinReels(0);
+        // this.spinReels(1);
+        // this.updateTotal();
         // }, 0.5);
+        setTimeout(() => {
+          this.selectReels(this.hitIndex);
+          this.spinReels(this.hitIndex);
+          this.spinning.splice(this.hitIndex, 1, false);
+          this.hitIndex++;
+          this.updateTotal();
+        }, 5);
       }
     },
     selectReels(i) {
@@ -137,9 +145,12 @@ export default {
       this.pointsArray.push(this.cardsToSend[i].value);
     },
     async spinReels(i) {
-      this.spinning[i] = true;
+      this.spinning.splice(i, 1, true);
+
+      // this.spinning[i] = true;
       await setTimeout(() => {
-        this.spinning[i] = false;
+        this.spinning.splice(i, 1, false);
+        // this.spinning[i] = false;
       }, 5000);
     },
     spinAllReels() {
@@ -150,7 +161,7 @@ export default {
       // this.spinReels(this.hitIndex);
       this.selectReels(this.hitIndex);
       this.spinReels(this.hitIndex);
-
+      this.spinning.splice(this.hitIndex, 1, false);
       this.hitIndex++;
       this.updateTotal();
     },
@@ -186,7 +197,7 @@ export default {
       this.blackJack = false;
       this.canRollOver = false;
       this.bust = false;
-      this.hitIndex = 2;
+      this.hitIndex = 0;
       this.pointsTotal = 0;
       this.createDeck();
       this.shuffle(this.deck);

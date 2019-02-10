@@ -1,6 +1,5 @@
 <template>
   <div class="reel">
-    <!-- {{spinning}} -->
     <Card
       :showCard="showCard"
       :card="cardToShow"
@@ -17,30 +16,20 @@ export default {
   },
   data: () => ({
     cardToShow: undefined,
-    stillSpinning: undefined
+    reelSpin: undefined
   }),
   watch: {
     spinning() {
-      this.stillSpinning = this.spinning;
-      if (this.stillSpinning === true) {
-        let reelSpin = setInterval(() => {
+      if (this.spinning === true) {
+        this.reelSpin = setInterval(() => {
           this.cardToShow = this.virtualDeck[Math.floor(Math.random() * 52)];
           // console.log(Math.floor(Math.random() * 52));
         }, 200);
+      } else {
         setTimeout(() => {
-          window.clearInterval(reelSpin);
-          this.stillSpinning = false;
+          window.clearInterval(this.reelSpin);
+          this.cardToShow = this.card;
         }, 5000);
-      }
-    },
-    stillSpinning() {
-      if (!this.stillSpinning) {
-        this.cardToShow = this.card;
-      }
-    },
-    showCard() {
-      if (this.showCard) {
-        this.cardToShow = undefined;
       }
     }
   }
