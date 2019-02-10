@@ -116,6 +116,9 @@ export default {
         .flat(1);
     },
     pullLever() {
+      if (this.blackJack) {
+        this.pot = 0;
+      }
       if (!this.leverPulled) {
         this.resetSlots();
         // this.spinReels(0);
@@ -192,8 +195,6 @@ export default {
         case 20:
           this.pot += 2.5 * this.hitIndex;
           break;
-        case 21:
-          this.pot += 3 * this.hitIndex;
       }
     },
     async updateTotal() {
@@ -241,7 +242,7 @@ export default {
         this.pot = 0;
       } else if (this.pointsTotal === 21) {
         // BLACKJACK
-        this.pot += 5;
+        this.pot += 3 * this.hitIndex;
         this.blackJack = true;
         this.canHit = false;
         this.leverPulled = false;
@@ -360,13 +361,13 @@ export default {
 }
 .pot {
   position: absolute;
-  right: 50px;
+  right: 45px;
   text-align: right;
-  top: 60px;
+  top: 65px;
 }
 .multiplier {
   position: absolute;
-  top: 60px;
+  top: 65px;
   right: 370px;
 }
 h3 {

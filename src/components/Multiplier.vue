@@ -11,6 +11,6 @@ export default {
 <style>
 .multiplier {
   color: rgb(97, 225, 214);
-  font-size: 70px;
+  font-size: 60px;
 }
 </style>
