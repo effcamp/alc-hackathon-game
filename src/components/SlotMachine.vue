@@ -240,7 +240,10 @@ export default {
         this.canRollOver = false;
         this.leverPulled = false;
         this.pot = 0;
-      } else if (this.pointsTotal === 21) {
+      } else if (
+        this.pointsTotal === 21 ||
+        (this.pointsTotal < 21 && this.hitIndex === 5)
+      ) {
         // BLACKJACK
         this.pot += 3 * this.hitIndex;
         this.blackJack = true;

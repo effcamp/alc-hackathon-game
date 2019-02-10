@@ -31,6 +31,11 @@ export default {
           this.cardToShow = this.card;
         }, 5000);
       }
+    },
+    showCard() {
+      if (!this.showCard) {
+        window.clearInterval(this.realSping);
+      }
     }
   }
 };
