@@ -121,10 +121,13 @@ export default {
         // this.spinReels(1);
         this.cardsToSend = this.deck.splice(0, 5);
         this.leverPulled = true;
-        setTimeout(() => {});
+        // setTimeout(() => {
         this.selectReels(0);
         this.selectReels(1);
+        this.spinReels(0);
+        this.spinReels(1);
         this.updateTotal();
+        // }, 0.5);
       }
     },
     selectReels(i) {
@@ -133,9 +136,21 @@ export default {
 
       this.pointsArray.push(this.cardsToSend[i].value);
     },
+    async spinReels(i) {
+      this.spinning[i] = true;
+      await setTimeout(() => {
+        this.spinning[i] = false;
+      }, 5000);
+    },
+    spinAllReels() {
+      this.spinning = [true, true, true, true, true];
+      this.selectedReels = [true, true, true, true, true];
+    },
     hitNewCard() {
       // this.spinReels(this.hitIndex);
       this.selectReels(this.hitIndex);
+      this.spinReels(this.hitIndex);
+
       this.hitIndex++;
       this.updateTotal();
     },
@@ -158,7 +173,7 @@ export default {
           break;
       }
     },
-    updateTotal() {
+    async updateTotal() {
       setTimeout(() => {
         if (this.pointsArray.length !== 0) {
           this.pointsTotal = this.pointsArray.reduce((prev, cur, i) =>
@@ -179,7 +194,6 @@ export default {
       this.pointsArray = [];
       this.selectedReels = [false, false, false, false, false];
       this.spinning = [false, false, false, false, false];
-
       this.canHit = true;
     }
     // spinReels(card) {
