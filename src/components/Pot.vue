@@ -1,5 +1,5 @@
 <template>
-  <div class="pot">Pot: {{pot}}</div>
+  <div class="pot">{{pot}}</div>
 </template>
 
 <script>
@@ -8,5 +8,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.pot {
+  color: rgb(97, 225, 214);
+  font-size: 70px;
+  /* 97 225 214 */
+}
 </style>

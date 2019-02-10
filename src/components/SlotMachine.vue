@@ -1,8 +1,11 @@
 <template>
   <div class="slot-machine">
     <div class="slot-machine-top">
-      <Multiplier :multiplier="multiplier" />
-      <Pot :pot="pot" />
+      <Multiplier :multiplier="hitIndex" />
+      <Pot
+        class="pot"
+        :pot="pot"
+      />
     </div>
     <div class="reels">
       <Reel
@@ -19,7 +22,7 @@
       class="lever-btn btn"
       :disabled="leverPulled"
       @click="pullLever"
-    >Play</button>
+    ></button>
     <Points
       class="points"
       :points="pointsTotal"
@@ -29,12 +32,12 @@
       class="hit-btn btn"
       @click="hitNewCard"
       :disabled="hitIndex ===5 || pointsTotal ==0 || !canHit"
-    >Hit</button>
+    ></button>
     <button
       class="roll-btn btn"
       @click="rollOver"
       :disabled="!canRollOver"
-    >Roll Over</button>
+    ></button>
 
     <p>{{bust ? "BUST" : ""}}</p>
     <p>{{blackJack ? "BLACKJACK" : ""}}</p>
@@ -83,7 +86,6 @@ export default {
     pot: 0,
     pointsTotal: 0,
     pointsArray: [],
-    multiplier: 1,
     selectedReels: [false, false, false, false, false],
     leverPulled: false,
     canRollOver: false,
@@ -284,32 +286,75 @@ export default {
   /* background: url(../assets/Background-21912.jpg);
   background-size: 100%; */
 }
+.btn:hover {
+  cursor: pointer;
+}
 .lever-btn {
+  border: none;
+  background: url(../assets/BigRedButton.png);
+  background-size: 100%;
   position: absolute;
   bottom: 20px;
   left: 100px;
-  height: 100px;
+  height: 135px;
   width: 235px;
+}
+.lever-btn:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.lever-btn:disabled {
+  filter: grayscale(100%);
 }
 .hit-btn {
   position: absolute;
+  border: none;
+  background: url(../assets/Hit_Button.png);
+  background-size: 100%;
   bottom: 20px;
   right: 200px;
   width: 150px;
   height: 100px;
 }
+.hit-btn:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.hit-btn:disabled {
+  filter: grayscale(100%);
+}
 .roll-btn {
   position: absolute;
+  border: none;
+  background: url(../assets/Roll_Over.png);
+  background-size: 100%;
   bottom: 20px;
   right: 40px;
   height: 100px;
   width: 150px;
+}
+.roll-btn:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.roll-btn:disabled {
+  filter: grayscale(100%);
 }
 .points {
   position: absolute;
   bottom: 120px;
   left: 515px;
   text-align: center;
+}
+.pot {
+  position: absolute;
+  right: 150px;
+  top: 60px;
+}
+.multiplier {
+  position: absolute;
+  top: 60px;
+  right: 370px;
 }
 h3 {
   margin: 40px 0 0;

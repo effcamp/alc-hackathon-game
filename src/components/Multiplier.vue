@@ -1,5 +1,5 @@
 <template>
-  <div class="multiplier">Multiplier: {{multiplier}}</div>
+  <div class="multiplier">{{multiplier}}</div>
 </template>
 
 <script>
@@ -9,4 +9,8 @@ export default {
 </script>
 
 <style>
+.multiplier {
+  color: rgb(97, 225, 214);
+  font-size: 70px;
+}
 </style>
